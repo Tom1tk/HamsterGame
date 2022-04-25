@@ -18,6 +18,8 @@ public class BallMovement : MonoBehaviour
     ParticleSystem ChargeFX;
     [SerializeField]
     ParticleSystem SpeedFX;
+    [SerializeField]
+    ParticleSystem DodgeFX;
 
     [SerializeField]
     Controls _controls;
@@ -43,6 +45,8 @@ public class BallMovement : MonoBehaviour
     public float boostLv;
     float boostFXdur;
     public bool charging;
+    public float playerMagnitudeBeforePhysicsUpdate;
+    
 
     void Awake()
     {
@@ -73,7 +77,9 @@ public class BallMovement : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    {   
+        playerMagnitudeBeforePhysicsUpdate = rb.velocity.magnitude;
+
         Vector3 directionInput = new Vector3(movementInput.x, 0f, movementInput.y);
         
         Vector3 relativeDirection = directionInput.x * cameraTransform.right + directionInput.z * new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z);
@@ -150,11 +156,13 @@ public class BallMovement : MonoBehaviour
         {
             if(dodgeInput < 0f)
             {
+                DodgeFX.Play();
                 UIref.showDodgeUI();
                 rb.AddForce(new Vector3(-cameraTransform.right.x, 0f, -cameraTransform.right.z) * (dodgeForce), ForceMode.Impulse);
                 dodgeTimer = 0f;
             }else if(dodgeInput > 0f)
             {
+                DodgeFX.Play();
                 UIref.showDodgeUI();
                 rb.AddForce(new Vector3(cameraTransform.right.x, 0f, cameraTransform.right.z) * (dodgeForce), ForceMode.Impulse);
                 dodgeTimer = 0f;
@@ -169,5 +177,32 @@ public class BallMovement : MonoBehaviour
     private void OnDisable()
     {
         _controls.Player.Disable();
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.tag == "Enemy")
+        {   
+            //get player and enemy speed before collision
+            float playerCollisionSpeed = playerMagnitudeBeforePhysicsUpdate;
+            float otherCollisionSpeed = other.gameObject.GetComponent<EnemyAI>().enemyMagnitudeBeforePhysicsUpdate;
+
+            /*
+            Debug.Log("player collision speed: " + playerCollisionSpeed); 
+            Debug.Log("enemy collision speed: " + otherCollisionSpeed);
+            */
+            
+            //whoever was going slower before the collision takes damage
+            if (otherCollisionSpeed > playerCollisionSpeed && otherCollisionSpeed > 30f)
+            {
+                this.gameObject.GetComponent<HealthScript>().takeDmg();
+                Debug.LogWarning("enemy was the faster object, player takes dmg");
+
+            }else if(playerCollisionSpeed > otherCollisionSpeed && playerCollisionSpeed > 30f)
+            {
+                other.transform.gameObject.GetComponent<HealthScript>().takeDmg();
+                Debug.LogWarning("player was the faster object, enemy takes dmg");
+            }
+        }
     }
 }

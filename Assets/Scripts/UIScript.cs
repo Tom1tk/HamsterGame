@@ -12,7 +12,7 @@ public class UIScript : MonoBehaviour
     public Slider dodgeUI;
     public GameObject dodgeSlider;
 
-    void Start()
+    void Awake()
     {
         PlayerRef = GameObject.Find("PlayerBall").GetComponent<BallMovement>();
         hideBoostUI();
