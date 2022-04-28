@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public bool displayNavPath;
 
     [Header("Player reference")]
     [SerializeField]
@@ -61,6 +62,7 @@ public class EnemyAI : MonoBehaviour
         //to avoid desync where the agent and enemy would be in different places, causing the enemy to fly in some cases
         enemyAgent.Warp(rb.position);
 
+        //enemies don't have a run animation
         //spriteAnim.SetFloat("speed", rb.velocity.magnitude);
 
         canSeePlayer = Physics.CheckSphere(transform.position, detectionRange, playerLayer);
@@ -83,14 +85,21 @@ public class EnemyAI : MonoBehaviour
         {
             boostStarted = true;
             StartCoroutine(BoostAtPlayer());
-            player.GetComponent<HealthScript>().combatStarted();
-            this.gameObject.GetComponent<HealthScript>().combatStarted();
+            
+            //leftovers from CoD style health healing system
+            //player.GetComponent<HealthScript>().combatStarted();
+            //this.gameObject.GetComponent<HealthScript>().combatStarted();
         }
         
-        DrawPath();
+        if(displayNavPath)
+        {
+            DrawPath();
+        }
+        
     }
     IEnumerator createWanderPoint()
     {
+        //finds a random point in collider for the enemy to "wander" to
         wanderPointCreated = true;
         wanderPoint = RandomPointInBounds(wanderArea.bounds);
         wanderTime = Random.Range(1f, 5f);
@@ -196,7 +205,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         /*
-        Draws a yellow line from the center of the actor to the clicked location with the code in the Update() below
+        Draws a yellow line from the center of the actor to the clicked location with the code in the Update()
         */
     }
 

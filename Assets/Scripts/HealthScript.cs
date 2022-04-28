@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class HealthScript : MonoBehaviour
 {
-    public bool dead, inCombat;
+    public bool died, inCombat;
     public int health, MaxHealth;
     public float healthRegenTimer, healthRegenCD;
     public float combatTimer, combatCD;
     public GameObject BallGameObject;
     public Material BallDmg0, BallDmg1 ,BallDmg2, BallDmg3, BallBroken;
     public Animator SpriteAnim;
+    UIScript UIref;
     
     void Awake()
     {
+        UIref = GameObject.Find("Canvas").GetComponent<UIScript>();
         inCombat = false;
         health = MaxHealth;
         healthRegenTimer = 0f;
@@ -27,15 +29,20 @@ public class HealthScript : MonoBehaviour
 
         if(health == 0)
         {
-            dead = true;
+            died = true;
         }
     }
 
     public void healDmg()
     {
-        health = health + 1;
+        if(health >= MaxHealth)
+        {
+            health = MaxHealth;
+        }else{
+            health = health + 1;
+        }
         materialSwitch();
-        healthRegenTimer = 0f;
+        //healthRegenTimer = 0f;
     }
 
     public void combatStarted()
@@ -71,11 +78,24 @@ public class HealthScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(dead)
+        if(died)
         {
-            Destroy(this.gameObject, 1f);
+            if(this.gameObject.CompareTag("Player"))
+            {
+                UIref.showLoseUI();
+                Destroy(this.gameObject);
+            }else{
+                UIref.enemiesAlive -= 1;
+                //leaves the hamster sprite exposed from its broken ball whilst disabling the AI and halting any particle effects
+                Destroy(this.gameObject.GetComponent<EnemyAI>());
+                Destroy(this.gameObject.GetComponentInChildren<ParticleSystem>());
+                Destroy(this.gameObject, 1.5f);
+            }
+            died = false;
         }
 
+        //CoD style out-of-combat healing for HP, scrapped for simpler healing with strawberries
+        /*
         if((healthRegenTimer < healthRegenCD) && (health != MaxHealth) && (inCombat == false))
         {
             healthRegenTimer += Time.deltaTime;
@@ -84,7 +104,7 @@ public class HealthScript : MonoBehaviour
             healDmg();
         }else{
             healthRegenTimer = 0f;
-        }
+        }*/
 
     }
 }

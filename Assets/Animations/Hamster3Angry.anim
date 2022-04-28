@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hamster3Angry
+  m_Name: hamster3angry
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -4906517688911199428, guid: 3a9c4cf38e4f12540997fed4a13d0bb1, type: 3}
+      value: {fileID: 427376192021219150, guid: 4283990b92fcbbc44b322d00695a6428, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -4906517688911199428, guid: 3a9c4cf38e4f12540997fed4a13d0bb1, type: 3}
+    - {fileID: 427376192021219150, guid: 4283990b92fcbbc44b322d00695a6428, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

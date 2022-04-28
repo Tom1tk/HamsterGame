@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d91d9082f7ba5aa479398c7def0804dc, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8f95a9bc9ae61c940aeb7fd8d2b3a1f5, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -35,7 +35,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Angry
-  m_Speed: 0.5
+  m_Speed: 0.05
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3521132188050528183}
@@ -48,7 +48,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f141d3ddd379078469e5c697cefb4c63, type: 2}
+  m_Motion: {fileID: 7400000, guid: 74a9b882edc439d4e8c4a133cc4f10dd, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -74,6 +74,8 @@ public class BallMovement : MonoBehaviour
 
         _controls.Player.Dodge.started += ctx => dodgeInput = ctx.ReadValue<float>();
         _controls.Player.Dodge.performed += __ => dodge();
+
+        _controls.Player.Pause.started += ___ => UIref.showPauseUI();
     }
 
     void FixedUpdate()
@@ -196,13 +198,23 @@ public class BallMovement : MonoBehaviour
             if (otherCollisionSpeed > playerCollisionSpeed && otherCollisionSpeed > 30f)
             {
                 this.gameObject.GetComponent<HealthScript>().takeDmg();
-                Debug.LogWarning("enemy was the faster object, player takes dmg");
+                Debug.Log("enemy was the faster object, player takes dmg");
 
             }else if(playerCollisionSpeed > otherCollisionSpeed && playerCollisionSpeed > 30f)
             {
                 other.transform.gameObject.GetComponent<HealthScript>().takeDmg();
-                Debug.LogWarning("player was the faster object, enemy takes dmg");
+                Debug.Log("player was the faster object, enemy takes dmg");
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Strawberry")
+        {   
+            Destroy(other.gameObject);
+            UIref.strawbCollected += 1;
+            this.gameObject.GetComponent<HealthScript>().healDmg();
         }
     }
 }

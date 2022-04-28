@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f597c58d735ac4844ac1fe089ee25cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayNavPath: 0
   player: {fileID: 0}
   playerLayer:
     serializedVersion: 2
@@ -141,11 +142,11 @@ MonoBehaviour:
   wanderArea: {fileID: 0}
   maxVelocity: 15
   inputForce: 100
-  detectionRange: 30
-  boostAttackRange: 10
+  detectionRange: 15
+  boostAttackRange: 7
   boostChargeTime: 1.5
   boostCD: 2
-  boostForce: 100
+  boostForce: 50
   canSeePlayer: 0
   canAttackPlayer: 0
   Attacked: 0
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd971addc7bd03d44a1c8367141fc446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dead: 0
+  died: 0
   inCombat: 0
   health: 0
   MaxHealth: 3

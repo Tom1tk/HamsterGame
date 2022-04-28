@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7088098743610538693, guid: 3a9c4cf38e4f12540997fed4a13d0bb1, type: 3}
+  m_Sprite: {fileID: -7934978216057070535, guid: 4283990b92fcbbc44b322d00695a6428, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -255,11 +255,11 @@ MonoBehaviour:
   tpCamera: {fileID: 0}
   debugText: {fileID: 0}
   maxVelocity: 25
-  inputForce: 150
+  inputForce: 100
   dodgeForce: 25
   dodgeTimer: 0
   dodgeCooldown: 1
-  boostForce: 100
+  boostForce: 70
   boostMax: 1
   boostLv: 0
   charging: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd971addc7bd03d44a1c8367141fc446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dead: 0
+  died: 0
   inCombat: 0
   health: 0
   MaxHealth: 4
